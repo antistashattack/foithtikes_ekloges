@@ -1,85 +1,167 @@
+import sys
+from PyQt5.QtWidgets import (
+    QApplication, QWidget, QVBoxLayout, QLabel, QRadioButton,
+    QPushButton, QHBoxLayout, QButtonGroup, QMessageBox, QScrollArea
+)
+from PyQt5.QtGui import QFont, QPalette, QColor
+from PyQt5.QtCore import Qt
+
+questions = {
+    "aponekrwsh_sullogwn": "Θες να απονεκρωθούν οι φοιτητικοί σύλλογοι;",
+    "eksousia_stis_gs": "Θες όλη η εξουσία να είναι στις Γενικές Συνελεύσεις;",
+    "sullogoi_tampela": "Οι φοιτητικοί σύλλογοι είναι ταμπέλες που τους κάνεις ό,τι θέλεις;",
+    "kleinw_khnhmata": "Κλείνεις κάθε χρόνο τα κινήματα;",
+    "kata_tis_gnwshs": "Είσαι κατά της γνώσης;",
+    "o_kosmos_xazos": "Πιστεύεις πως ο κόσμος είναι χαζός και δεν καταλαβαίνει αν πεις τη λέξη 'καπιταλισμός';",
+    "anasugkrothsh_sullogwn": "Θες ανασυγκρότηση φοιτητικών συλλόγων;",
+    "thetiko_protagma": "Έχεις θετικό πρόταγμα για το πανεπιστήμιο των αναγκών μας;",
+    "enantia_se_kubernhsh_susthma_ee": "Είσαι συνολικά ενάντια σε κυβέρνηση, σύστημα και Ε.Ε.;",
+    "ereuna_gia_anagkes": "Θες έρευνα και γνώση για τις κοινωνικές ανάγκες;",
+    "sundesh_ergatiko": "Θες σύνδεση του φοιτητικού με το εργατικό και τα ταξικά σωματεία;",
+    "antifasismos": "Είσαι ενάντια στον φασισμό;",
+    "patriarxia": "Στηρίζεις την πατριαρχία;",
+    "polemos": "Είσαι υπέρ του πολέμου;",
+    "diagrafes_didaktra": "Στηρίζεις διαγραφές και δίδακτρα στα μεταπτυχιακά;",
+    "idiwtika_panep": "Στηρίζεις ιδιωτικά πανεπιστήμια;",
+    "upoxrhmatodothsh": "Στηρίζεις υποχρηματοδότηση και έρευνα για στρατό και επιχειρήσεις;",
+    "katarg_asilou": "Είσαι υπέρ της κατάργησης του ασύλου;",
+    "mnhmonia_mexri_na_sbhsei_o_hlios_o_prasinos": "Στηρίζεις μνημόνια μέχρι να σβήσει ο ήλιος ο πράσινος;"
+}
 
 
-def foithtikes_ekloges(
-    aponekrwsh_sullogwn, eksousia_stis_gs, sullogoi_tampela, kleinw_khnhmata,
-    kata_tis_gnwshs, o_kosmos_xazos, anasugkrothsh_sullogwn, thetiko_protagma, 
-    enantia_se_kubernhsh_susthma_ee, ereuna_gia_anagkes, sundesh_ergatiko, 
-    antifasismos, patriarxia, polemos, diagrafes_didaktra, idiwtika_panep,
-    upoxrhmatodothsh, katarg_asilou, mnhmonia_mexri_na_sbhsei_o_hlios_o_prasinos
-):
-
-    if aponekrwsh_sullogwn:
-        return "Δεν μπορούμε να αγωνιστούμε χωρίς συλλόγους. Κάτσε σπίτι σου."
-
-    if (
-        diagrafes_didaktra and idiwtika_panep and upoxrhmatodothsh and 
-        katarg_asilou and mnhmonia_mexri_na_sbhsei_o_hlios_o_prasinos
-    ):
-        return "ΠΑΣΟΚ"
-
-    if (not eksousia_stis_gs and sullogoi_tampela and kleinw_khnhmata):
-        return "ΠΚΣ"
-
-    if (
-        not eksousia_stis_gs and not thetiko_protagma and 
-        kata_tis_gnwshs and o_kosmos_xazos
-    ):
-        return "Αναφη στο τετράγωνο / Ασυμμετρία"
-
-    if (
-        eksousia_stis_gs and anasugkrothsh_sullogwn and thetiko_protagma 
-        and ereuna_gia_anagkes and sundesh_ergatiko and 
-        antifasismos and not patriarxia and not polemos and 
-        not diagrafes_didaktra and not idiwtika_panep and 
-        not upoxrhmatodothsh and not katarg_asilou
-        or enantia_se_kubernhsh_susthma_ee 
-    ):
-        return "Αντίσταση - ATTACK"
-
-    else :
-        return "ΑΝΑΠΟΦΑΣΙΣΤΟ! Πρέπει να συζητήσουμε από κοντά! Σε καλούμε στο τραπεζάκι της Αντίστασης στο Κάτω Πολυτεχνείο!"
-
-
-
-def yes_no(question):
-    while True:
-        reply = input(question + " (ναι/οχι): ").strip().lower()
-        if reply in ["ναι", "nai", "yes"]:
-            return True
-        elif reply in ["οχι", "όχι", "oxi", "no"]:
-            return False
-        else:
-            print("Απάντησε με 'ναι' ή 'όχι'.")
-
-def main():
-    print("🗳️ Φοιτητικές Εκλογές - Ερωτηματολόγιο Θέσεων")
-    print("-" * 50)
-
-    answers = {
-        "aponekrwsh_sullogwn": yes_no("Θες να απονεκρωθούν οι φοιτητικοί σύλλογοι;"),
-        "eksousia_stis_gs": yes_no("Θες όλη η εξουσία να είναι στις Γενικές Συνελεύσεις;"),
-        "sullogoi_tampela": yes_no("Οι φοιτητικοί σύλλογοι είναι ταμπέλες που τους κάνεις ό,τι θέλεις;"),
-        "kleinw_khnhmata": yes_no("Κλείνεις κάθε χρόνο τα κινήματα;"),
-        "kata_tis_gnwshs": yes_no("Είσαι κατά της γνώσης;"),
-        "o_kosmos_xazos": yes_no("Πιστεύεις πως ο κόσμος είναι χαζός και δεν καταλαβαίνει αν πεις τη λέξη 'καπιταλισμός';"),
-        "anasugkrothsh_sullogwn": yes_no("Θες ανασυγκρότηση φοιτητικών συλλόγων;"),
-        "thetiko_protagma": yes_no("Έχεις θετικό πρόταγμα για το πανεπιστήμιο των αναγκών μας;"),
-        "enantia_se_kubernhsh_susthma_ee": yes_no("Είσαι συνολικά ενάντια σε κυβέρνηση, σύστημα και Ε.Ε.;"),
-        "ereuna_gia_anagkes": yes_no("Θες έρευνα και γνώση για τις κοινωνικές ανάγκες;"),
-        "sundesh_ergatiko": yes_no("Θες σύνδεση του φοιτητικού με το εργατικό και τα ταξικά σωματεία;"),
-        "antifasismos": yes_no("Είσαι ενάντια στον φασισμό;"),
-        "patriarxia": yes_no("Στηρίζεις την πατριαρχία;"),
-        "polemos": yes_no("Είσαι υπέρ του πολέμου;"),
-        "diagrafes_didaktra": yes_no("Στηρίζεις διαγραφές και δίδακτρα στα μεταπτυχιακά;"),
-        "idiwtika_panep": yes_no("Στηρίζεις ιδιωτικά πανεπιστήμια;"),
-        "upoxrhmatodothsh": yes_no("Στηρίζεις υποχρηματοδότηση και έρευνα για στρατό και επιχειρήσεις;"),
-        "katarg_asilou": yes_no("Είσαι υπέρ της κατάργησης του ασύλου;"),
-        "mnhmonia_mexri_na_sbhsei_o_hlios_o_prasinos": yes_no("Στηρίζεις μνημόνια μέχρι να σβήσει ο ήλιος ο πράσινος;"),
+def foithtikes_ekloges(**a):
+    conditions = {
+        "aponekrwsh": a["aponekrwsh_sullogwn"],
+        "pasok": all([
+            a["diagrafes_didaktra"],
+            a["idiwtika_panep"],
+            a["upoxrhmatodothsh"],
+            a["katarg_asilou"],
+            a["mnhmonia_mexri_na_sbhsei_o_hlios_o_prasinos"]
+        ]),
+        "pks": not a["eksousia_stis_gs"] and a["sullogoi_tampela"] and a["kleinw_khnhmata"],
+        "asummetria": not a["eksousia_stis_gs"] and not a["thetiko_protagma"] and a["kata_tis_gnwshs"] and a["o_kosmos_xazos"],
+        "attack": (
+            all([
+                a["eksousia_stis_gs"],
+                a["anasugkrothsh_sullogwn"],
+                a["thetiko_protagma"],
+                a["ereuna_gia_anagkes"],
+                a["sundesh_ergatiko"],
+                a["antifasismos"],
+                not a["patriarxia"],
+                not a["polemos"],
+                not a["diagrafes_didaktra"],
+                not a["idiwtika_panep"],
+                not a["upoxrhmatodothsh"],
+                not a["katarg_asilou"]
+            ]) or a["enantia_se_kubernhsh_susthma_ee"]
+        )
     }
 
-    result = foithtikes_ekloges(**answers)
-    print("\n📢 Πρέπει να ψηφίσεις:", result)
+    outcomes = {
+        "aponekrwsh": "Δεν μπορούμε να αγωνιστούμε χωρίς συλλόγους. Κάτσε σπίτι σου.",
+        "pasok": "ΠΑΣΟΚ",
+        "pks": "ΠΚΣ",
+        "asummetria": "Αναφη στο τετράγωνο / Ασυμμετρία",
+        "attack": "Αντίσταση - ATTACK"
+    }
+
+    return next((msg for key, msg in outcomes.items() if conditions.get(key)),
+                "ΑΝΑΠΟΦΑΣΙΣΤΟ! Πρέπει να συζητήσουμε από κοντά!")
+
+
+class QuestionWidget(QWidget):
+    def __init__(self, key, text):
+        super().__init__()
+        self.key = key
+        self.label = QLabel(text)
+        self.label.setWordWrap(True)
+        self.yes = QRadioButton("Ναι")
+        self.no = QRadioButton("Όχι")
+        self.group = QButtonGroup(self)
+        self.group.addButton(self.yes, id=1)
+        self.group.addButton(self.no, id=0)
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.label)
+
+        buttons = QHBoxLayout()
+        buttons.addWidget(self.yes)
+        buttons.addWidget(self.no)
+        layout.addLayout(buttons)
+
+        self.setLayout(layout)
+
+    def get_answer(self):
+        id = self.group.checkedId()
+        if id == -1:
+            return None
+        return bool(id)
+
+    def mark_unanswered(self):
+        palette = self.label.palette()
+        palette.setColor(QPalette.WindowText, QColor("red"))
+        self.label.setPalette(palette)
+
+    def clear_mark(self):
+        palette = self.label.palette()
+        palette.setColor(QPalette.WindowText, QColor("black"))
+        self.label.setPalette(palette)
+
+
+class MainWindow(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("🗳️ Φοιτητικές Εκλογές")
+        self.resize(700, 700)
+
+        self.questions_widgets = []
+        self.layout = QVBoxLayout()
+
+        scroll_area = QScrollArea()
+        scroll_widget = QWidget()
+        scroll_layout = QVBoxLayout()
+
+        for key, text in questions.items():
+            widget = QuestionWidget(key, text)
+            self.questions_widgets.append(widget)
+            scroll_layout.addWidget(widget)
+
+        scroll_widget.setLayout(scroll_layout)
+        scroll_area.setWidgetResizable(True)
+        scroll_area.setWidget(scroll_widget)
+
+        self.submit_button = QPushButton("Υποβολή")
+        self.submit_button.clicked.connect(self.evaluate)
+
+        self.layout.addWidget(scroll_area)
+        self.layout.addWidget(self.submit_button)
+        self.setLayout(self.layout)
+
+    def evaluate(self):
+        answers = {}
+        all_answered = True
+
+        for widget in self.questions_widgets:
+            answer = widget.get_answer()
+            if answer is None:
+                widget.mark_unanswered()
+                all_answered = False
+            else:
+                widget.clear_mark()
+                answers[widget.key] = answer
+
+        if not all_answered:
+            QMessageBox.warning(self, "Ανεπαρκείς Απαντήσεις", "Πρέπει να απαντήσεις σε όλες τις ερωτήσεις!")
+        else:
+            result = foithtikes_ekloges(**answers)
+            QMessageBox.information(self, "Αποτέλεσμα", f"📢 Πρέπει να ψηφίσεις: {result}")
 
 
 if __name__ == "__main__":
-    main()
+    app = QApplication(sys.argv)
+    app.setFont(QFont("Arial", 11))
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec_())
